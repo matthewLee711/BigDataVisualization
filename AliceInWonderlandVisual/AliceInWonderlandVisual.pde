@@ -5,13 +5,17 @@ colored pictography defining most frequent letters and
 the times Alice appeared in wonderland. 
 */
 
+import java.io*;
+
 BufferedReader reader;
 String line;
+String[] wordArray;
+int[] letterFrequency;
 
 class AliceInWonderLandVisual {
   
   //Constructor
-  public AliceInWonderlandVisual(BuffereredReader reader) {
+  public AliceInWonderLandVisual() {
     //BufferedReader to open file
     reader = createReader("wonderland.txt");
 
@@ -25,15 +29,15 @@ class AliceInWonderLandVisual {
   //open file
   public void openFile() {
     try {
-      while(line = reader.readLine() != null) {
+      while((line = reader.readLine()) != null) {
         //Set line to lower case
         line.toLowerCase();
         //Split string and find frequency of Alice
 
         //read each individual character and color pixel on screen
 
-
-
+        
+        
         System.out.println(line);
       }
     }catch(Exception e){
@@ -42,7 +46,7 @@ class AliceInWonderLandVisual {
   }
 
   //setup array for comparison
-  public static void colorPrep() {
+  public void colorPrep() {
     wordArray[0] = "#eht346";
     wordArray[1] = "#333333";
     wordArray[2] = "#333333";
@@ -72,12 +76,19 @@ class AliceInWonderLandVisual {
     wordArray[26] = "#333333";
   }
 
-  private static void colorPixel() {
+  //Takes int and uses color table
+  private void colorPixel() {
 
   }
   
-  private static void graphFrequency() {
+  private void graphFrequency(String word) {
+    String ascii = word;
+    byte[] bytes = ascii.getBytes("US-ASCII");
 
+    for(int i = 0; i < bytes.length; i++) {
+      //iterate through word and add characters to frequency
+      letterFrequency[bytes[i] - 97]++;
+    }
   }
 
 }//End of class
