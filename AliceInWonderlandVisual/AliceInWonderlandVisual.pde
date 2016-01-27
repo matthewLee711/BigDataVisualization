@@ -1,3 +1,10 @@
+//Matthew Lee
+//Project 1: Alice in Wonderland Visualization
+/*The story of Alice in Wonderland is visualized into a
+colored pictography defining most frequent letters and
+the times Alice appeared in wonderland. 
+*/
+
 BufferedReader reader;
 String line;
 
@@ -19,7 +26,14 @@ class AliceInWonderLandVisual {
   public void openFile() {
     try {
       while(line = reader.readLine() != null) {
+        //Set line to lower case
         line.toLowerCase();
+        //Split string and find frequency of Alice
+
+        //read each individual character and color pixel on screen
+
+
+
         System.out.println(line);
       }
     }catch(Exception e){
@@ -28,7 +42,7 @@ class AliceInWonderLandVisual {
   }
 
   //setup array for comparison
-  public void colorPrep() {
+  public static void colorPrep() {
     wordArray[0] = "#eht346";
     wordArray[1] = "#333333";
     wordArray[2] = "#333333";
@@ -58,7 +72,13 @@ class AliceInWonderLandVisual {
     wordArray[26] = "#333333";
   }
 
+  private static void colorPixel() {
+
+  }
   
+  private static void graphFrequency() {
+
+  }
 
 }//End of class
 
