@@ -15,3 +15,4 @@ public class Main {
 
 void setup(){}
 void draw(){}
+void mousePressed(){}

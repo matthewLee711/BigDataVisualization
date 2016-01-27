@@ -32,8 +32,10 @@ class AliceInWonderLandVisual {
       while((line = reader.readLine()) != null) {
         //Set line to lower case
         line.toLowerCase();
+        
         //Split string and find frequency of Alice
-
+        String[] parts = line.split(Pattern.quote(" "));
+        
         //read each individual character and color pixel on screen
 
         
