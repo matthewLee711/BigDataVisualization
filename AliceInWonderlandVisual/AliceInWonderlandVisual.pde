@@ -1,3 +1,9 @@
+//Matthew Lee
+//Project 1: Alice in Wonderland Visualization
+/*The story of Alice in Wonderland is visualized into a
+colored pictography defining most and least frequent letters and
+the times Alice appeared in wonderland. 
+*/ 
 void openFile() {
   reader = createReader("wonderland.txt");
   try {
@@ -35,7 +41,7 @@ void openFile() {
         }//End of for loop
       }//End of While loop
       fill(255, 255, 255);
-      textSize(30);
+      textSize(28);
       text("Alice In Wonderland Visualized in Pixels", 10, 690);
       textSize(20);
       //Alice

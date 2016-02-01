@@ -1,7 +1,7 @@
 //Matthew Lee
 //Project 1: Alice in Wonderland Visualization
 /*The story of Alice in Wonderland is visualized into a
-colored pictography defining most frequent letters and
+colored pictography defining most and least frequent letters and
 the times Alice appeared in wonderland. 
 */ 
 import processing.core.*;
