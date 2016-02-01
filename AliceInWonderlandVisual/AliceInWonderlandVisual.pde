@@ -34,7 +34,7 @@ void openFile() {
           total++;
         }//End of for loop
       }//End of While loop
-      println(total);
+      fill(255, 255, 255);
       textSize(30);
       text("Alice In Wonderland Visualized in Pixels", 10, 690);
       textSize(20);
@@ -77,5 +77,23 @@ void visualizeGraph() {
     text("Letter Frequency", 275, 30);
     text(alphabet, i * 31, 60);
     rect(i * 31, 80, 20, letterFrequency[i] * .19);
-  }
+  }//end of for
+  //initializations to find min/max number
+  int max = 0;
+  int min = 1000;
+  for(int i = 0; i < 26; i++) {
+    if(letterFrequency[i] > max) {
+      max = letterFrequency[i];
+    }
+    else if(letterFrequency[i] < min) {
+      min = letterFrequency[i];
+    }
+  }//end of for
+  
+  //Visualize max
+  fill(200,100,0);
+  rect(4 * 31, 80, 20, max * .19);
+  //visualize min
+  fill(255,0,0);
+  rect(9 * 31, 80, 20, min * .19);
 }
