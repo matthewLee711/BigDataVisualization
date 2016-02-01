@@ -32,3 +32,26 @@ void setup() {
 
 void draw(){
 }
+
+void mousePressed() {
+  //visualize alice in wonderland
+  if(input == VISUALIZATION1){
+    input = 1;
+    background(0);
+    openFile2();
+    //println("alice");
+  }
+  //visualize word frequency
+  else if(input == VISUALIZATION2){
+    input = 0;
+    //reset visuals
+    background(0);
+    
+    //Display graph
+    visualizeGraph();
+    //pieChart(500, letterFrequency);
+    letterFrequency = new int[26];
+    //println("graph");
+  }
+  
+}
