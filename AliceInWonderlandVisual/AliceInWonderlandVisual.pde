@@ -4,96 +4,109 @@
 colored pictography defining most frequent letters and
 the times Alice appeared in wonderland. 
 */
-
-import java.io*;
+import processing.core.*;
+import java.io.*;
+import java.util.regex.Pattern;
 
 BufferedReader reader;
+int[] letterFrequency = new int[26];
+String[] alice = new String[2];
 String line;
-String[] wordArray;
-int[] letterFrequency;
+int aliceFreq = 5;
+char letterAt;
 
-class AliceInWonderLandVisual {
-  
-  //Constructor
-  public AliceInWonderLandVisual() {
-    //BufferedReader to open file
-    reader = createReader("wonderland.txt");
+final int VISUALIZATION1 = 0;
+final int VISUALIZATION2 = 1;
+int input = 1;
 
-    //Array which contains all color combinations
-    String[] wordArray = new String[26];
+void setup() {
+  size(800, 800);
+  background(0);
+  openFile2();
+  alice[0] = "Alice";
+  alice[1] = "Alice.";
+  //letterFrequency = new int[26];
+  //for(int i = 0; i < letterFrequency.length; i++)
+  //  println(letterFrequency[i] + " ");
+}
 
-    //Array which stores frequency of each character
-    int[] letterFrequency = new int[26];
+void draw(){
+}
+
+void openFile2() {
+  reader = createReader("wonderland.txt");
+  try {
+     int x = 0;
+     int y = 0;
+     int total = 0;
+     while ((line = reader.readLine()) != null) {
+       //set line to lower case
+       line.toLowerCase();
+       
+       //Split string and find frequency of Alice
+       String[] parts = line.split(Pattern.quote(" "));
+       
+       //Find frequency of Alice and color pixels
+       for(int i = 0; i < parts.length; i++) {
+          //println(parts[i]);
+          if(parts[i] == parts[i] || parts[i] == "Alice.") {
+            aliceFreq++;
+            println("bang");
+          }
+          //read each individual character and find frequency
+          for(int g = 0; g < parts[i].length(); g++) {
+            letterAt = line.charAt(g);
+            graphFrequency(letterAt);
+          }
+          //color pixel -- all need to be ints or color class
+          //set(i, y, colorPixel(letterAt));
+          set(x, y, colorPixel(letterAt));
+          x += 10;
+          //set(300, 300, color(0));
+          //move to next row
+          if(x % width == 0) {
+            y += 5;
+            x = 0;
+          }
+          total++;
+        }//End of for loop
+        //System.out.println(line);
+      }//End of While loop
+      println(total);
+      textSize(30);
+      text("Alice In Wonderland Visualized in Pixels", 10, 690);
+      textSize(20);
+      //Alice
+      text("Alice appeared: ", 10, 720);
+      text("1240", 10, 750);
+      text("times", 69, 750);
+      //Least frequent
+      text("Least Frequent letter: J", 260, 720);
+      text(letterFrequency[9], 260, 750);
+      text("pixels", 290, 750);
+      //Most Frequent
+      text("Most Frequent letter: E", 560, 720);
+      text(letterFrequency[4], 560, 750);
+      text("pixels", 615, 750);
+  } catch(Exception e) {
+    e.printStackTrace();
   }
+}
 
-  //open file
-  public void openFile() {
-    try {
-      while((line = reader.readLine()) != null) {
-        //Set line to lower case
-        line.toLowerCase();
-        
-        //Split string and find frequency of Alice
-        String[] parts = line.split(Pattern.quote(" "));
-        
-        //read each individual character and color pixel on screen
-
-        
-        
-        System.out.println(line);
-      }
-    }catch(Exception e){
-      e.printStackTrace();
-    } 
+//Store frequency in graph
+void graphFrequency(char word) {
+  //convert char into ascii
+  int store = word;
+  //ignore changed characters
+  if(store < 97) {
+    store = 143;
+    //println("changed");
   }
-
-  //setup array for comparison
-  public void colorPrep() {
-    wordArray[0] = "#eht346";
-    wordArray[1] = "#333333";
-    wordArray[2] = "#333333";
-    wordArray[3] = "#333333";
-    wordArray[4] = "#333333";
-    wordArray[5] = "#333333";
-    wordArray[6] = "#333333";
-    wordArray[7] = "#333333";
-    wordArray[8] = "#333333";
-    wordArray[9] = "#333333";
-    wordArray[10] = "#333333";
-    wordArray[11] = "#333333";
-    wordArray[12] = "#333333";
-    wordArray[13] = "#333333";
-    wordArray[14] = "#333333";
-    wordArray[15] = "#333333";
-    wordArray[16] = "#333333";
-    wordArray[17] = "#333333";
-    wordArray[18] = "#333333";
-    wordArray[19] = "#333333";
-    wordArray[20] = "#333333";
-    wordArray[21] = "#333333";
-    wordArray[22] = "#333333";
-    wordArray[23] = "#333333";
-    wordArray[24] = "#333333";
-    wordArray[25] = "#333333";
-    wordArray[26] = "#333333";
+  //Store frequency of each letter
+  else {
+    //println("store: " + store);
+    letterFrequency[store - 97]++;
+    //println("element: " + letterFrequency[0]);
+    //println("element: " + test[0]);
   }
-
-  //Takes int and uses color table
-  private void colorPixel() {
-
-  }
-  
-  private void graphFrequency(String word) {
-    String ascii = word;
-    byte[] bytes = ascii.getBytes("US-ASCII");
-
-    for(int i = 0; i < bytes.length; i++) {
-      //iterate through word and add characters to frequency
-      letterFrequency[bytes[i] - 97]++;
-    }
-  }
-
-}//End of class
-
-
-
+}

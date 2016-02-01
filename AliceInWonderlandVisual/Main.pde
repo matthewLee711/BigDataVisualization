@@ -1,5 +1,5 @@
 
-public class Main {
+/*public class Main {
   
   public Main() {
   
@@ -8,11 +8,25 @@ public class Main {
  //reader = createReader("wonderland.txt"); 
 
 
- AliceInWonderlandVisual wonderland = new AliceInWonderland(); 
   
+  
+}*/
+
+final int VISUAL_STATE_PIXEL = 0;
+final int VISUAL_STATE_GRAPH = 1;
+
+void setup() {
+	AliceInWonderlandVisual wonderland = new AliceInWonderland();
+	wonderland.colorPrep();
+	wonderland.openFile();
 }
 
 
-void setup(){}
-void draw(){}
-void mousePressed(){}
+void draw() {
+	//if mouse pressed, switch to graph by calling either hash/array
+
+}
+
+void mousePressed() {
+	
+}
