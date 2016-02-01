@@ -3,7 +3,7 @@
 /*The story of Alice in Wonderland is visualized into a
 colored pictography defining most frequent letters and
 the times Alice appeared in wonderland. 
-*/
+*/ 
 import processing.core.*;
 import java.io.*;
 import java.util.regex.Pattern;
