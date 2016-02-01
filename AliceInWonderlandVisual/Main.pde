@@ -19,8 +19,11 @@ final int VISUALIZATION1 = 0;
 final int VISUALIZATION2 = 1;
 int input = 1;
 
-void setup() {
+void settings() {
   size(800, 800);
+}
+
+void setup() {
   background(0);
   openFile2();
   alice[0] = "Alice";
