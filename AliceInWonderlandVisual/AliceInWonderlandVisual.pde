@@ -1,4 +1,4 @@
-void openFile2() {
+void openFile() {
   reader = createReader("wonderland.txt");
   try {
      int x = 0;
@@ -13,21 +13,19 @@ void openFile2() {
        
        //Find frequency of Alice and color pixels
        for(int i = 0; i < parts.length; i++) {
-          //println(parts[i]);
+          //Catches frequency of Alice
           if(parts[i] == parts[i] || parts[i] == "Alice.") {
             aliceFreq++;
-            println("bang");
           }
           //read each individual character and find frequency
           for(int g = 0; g < parts[i].length(); g++) {
             letterAt = line.charAt(g);
             graphFrequency(letterAt);
           }
-          //color pixel -- all need to be ints or color class
-          //set(i, y, colorPixel(letterAt));
+          //color pixel
           set(x, y, colorPixel(letterAt));
+          //add spacing between words
           x += 10;
-          //set(300, 300, color(0));
           //move to next row
           if(x % width == 0) {
             y += 5;
@@ -35,7 +33,6 @@ void openFile2() {
           }
           total++;
         }//End of for loop
-        //System.out.println(line);
       }//End of While loop
       println(total);
       textSize(30);
@@ -65,14 +62,10 @@ void graphFrequency(char word) {
   //ignore changed characters
   if(store < 97) {
     store = 143;
-    //println("changed");
   }
   //Store frequency of each letter
   else {
-    //println("store: " + store);
     letterFrequency[store - 97]++;
-    //println("element: " + letterFrequency[0]);
-    //println("element: " + test[0]);
   }
 }
 

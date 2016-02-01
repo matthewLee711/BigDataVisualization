@@ -5,11 +5,11 @@ color colorPixel(int letterAt) {
       color(255, 217, 0), //b
       color(185, 65, 200), //c
       color(0, 145, 35),   //d
-      color(255, 0, 0), //e // red
+      color(255, 0, 0), //e //red
       color(32, 95,200), //f //blue
       color(255, 217, 0), //g
       color(255, 217, 0), //h
-      color(255, 0, 0), //i // red
+      color(255, 0, 0), //i //red
       color(255, 217, 0), //j
       color(255, 217, 0), //k
       color(255, 217, 0), //l
@@ -21,7 +21,7 @@ color colorPixel(int letterAt) {
       color(255, 217, 0), //r
       color(255, 217, 0), //s
       color(255, 217, 0), //t
-      color(255, 0, 0), //u
+      color(255, 0, 0), //u //red
       color(255, 217, 0), //v
       color(255, 217, 0), //w
       color(255, 217, 0), //x

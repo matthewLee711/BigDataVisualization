@@ -25,12 +25,9 @@ void settings() {
 
 void setup() {
   background(0);
-  openFile2();
+  openFile();
   alice[0] = "Alice";
   alice[1] = "Alice.";
-  //letterFrequency = new int[26];
-  //for(int i = 0; i < letterFrequency.length; i++)
-  //  println(letterFrequency[i] + " ");
 }
 
 void draw(){
@@ -41,20 +38,15 @@ void mousePressed() {
   if(input == VISUALIZATION1){
     input = 1;
     background(0);
-    openFile2();
-    //println("alice");
+    openFile();
   }
   //visualize word frequency
   else if(input == VISUALIZATION2){
     input = 0;
     //reset visuals
     background(0);
-    
     //Display graph
     visualizeGraph();
-    //pieChart(500, letterFrequency);
     letterFrequency = new int[26];
-    //println("graph");
   }
-  
 }
