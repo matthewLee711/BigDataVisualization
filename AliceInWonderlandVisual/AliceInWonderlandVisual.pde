@@ -75,3 +75,14 @@ void graphFrequency(char word) {
     //println("element: " + test[0]);
   }
 }
+
+void visualizeGraph() {
+  textSize(32);
+  char alphabet;
+  for(int i = 0; i < 26; i++) {
+    alphabet = char(i + 97);
+    text("Letter Frequency", 275, 30);
+    text(alphabet, i * 31, 60);
+    rect(i * 31, 80, 20, letterFrequency[i] * .19);
+  }
+}
