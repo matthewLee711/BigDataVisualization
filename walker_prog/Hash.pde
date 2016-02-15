@@ -1,6 +1,6 @@
 //Put into seperate file
 //next step is to add multiple objects
-class Walker {
+class Hash {
   
   final int MAX_VELOCITY = 3;
   final float NOISE_DELTA = 0.01;
@@ -16,11 +16,11 @@ class Walker {
   public int x;
   public int y;
 
-  public Walker(PVector initialLocation) {
+  public Hash(PVector initialLocation) {
     this.location = initialLocation;
     velocity = new PVector(0, 0);//initialize x and y coordinate
-    acceleration = new PVector(1, 0);//initialize with 1pixel
-    tendency = new PVector(1,0);
+    acceleration = new PVector(0, 1);//initialize with 1pixel
+    tendency = new PVector(1,1);
     xOffset = 0.0;
   }
 
@@ -62,7 +62,8 @@ class Walker {
   void eat(Food f) {
     //adds to data structure
     data.add(f);
-    f.location.x = random(0,190);
+    //location off stored food
+    f.location.x = random(620, 780);
     f.location.y = random(height - 180, height);
   }
   

@@ -64,7 +64,7 @@ class Stack {
     data.add(f);
     //location off stored food
     f.location.x = random(220, 380);
-    f.location.y = random(height - 210, height);
+    f.location.y = random(height - 180, height);
   }
   
   
