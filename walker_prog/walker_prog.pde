@@ -83,6 +83,21 @@ void draw() {
   fill(0, 102, 153, 204);
   text("Tree", 870, 795);
   
+  //Add
+  textSize(32);
+  fill(0, 0, 0);
+  text("Add", 130, 50);
+  line(333, 0, 333, 765);
+  stroke(250);
+  textSize(32);
+  fill(0, 0, 0);
+  text("Add", 800, 50);
+  line(667, 0, 667, 765);
+  stroke(250);
+  //delete
+  textSize(32);
+  fill(0, 0, 0);
+  text("Delete", 460, 50);
   
   //Bag Data Structure
   walker.draw();

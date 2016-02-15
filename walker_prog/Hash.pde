@@ -15,6 +15,10 @@ class Hash {
   
   public int x;
   public int y;
+  
+  public int total = 0;
+  public int shiftx = 700;
+  public int addStack= 990;
 
   public Hash(PVector initialLocation) {
     this.location = initialLocation;
@@ -66,9 +70,17 @@ class Hash {
   void eat(Food f) {
     //adds to data structure
     data.add(f);
+    //keeps track of total
+    total++;
+    //shift stack if total exceeds 20
+    if (total % 20 == 0) {
+      shiftx += 20;
+      addStack = 990;
+    }
     //location off stored food
-    f.location.x = random(620, 780);
-    f.location.y = random(height - 180, height);
+    f.location.x = shiftx;//random(220, 380);
+    f.location.y = addStack;
+    addStack -= 10;
   }
   
   
