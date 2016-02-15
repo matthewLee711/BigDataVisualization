@@ -35,7 +35,7 @@ class Hash {
     
     //Catches ball when goes off screen
     if (location.y < 0) location.y = height;
-    if (location.y > height) location.y = 0; 
+    if (location.y > 750) location.y = 0; 
     if (location.x < 0) location.x = width;
     if (location.x > width) location.x = 0;
   }
@@ -46,7 +46,11 @@ class Hash {
   
   void draw() {
     //Draws ellipse which captures circles
+    fill(50);
     ellipse(location.x, location.y, 100, 100);
+    fill(0, 102, 153, 204);
+    textSize(32);
+    text("Hash", location.x - 37, location.y);
     //Draw food in specific area when captured
     for(Food f : data) {
      fill(f.c);

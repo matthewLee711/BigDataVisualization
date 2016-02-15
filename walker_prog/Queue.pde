@@ -15,6 +15,10 @@ class Queue {
   
   public int x;
   public int y;
+  
+  public int total = 0;
+  public int addQueue = 410;
+  public int shiftY= 810;
 
   public Queue(PVector initialLocation) {
     this.location = initialLocation;
@@ -35,7 +39,7 @@ class Queue {
     
     //Catches ball when goes off screen
     if (location.y < 0) location.y = height;
-    if (location.y > height) location.y = 0; 
+    if (location.y > 750) location.y = 0; 
     if (location.x < 0) location.x = width;
     if (location.x > width) location.x = 0;
   }
@@ -46,7 +50,11 @@ class Queue {
   
   void draw() {
     //Draws ellipse which captures circles
+    fill(50);
     ellipse(location.x, location.y, 100, 100);
+    fill(0, 102, 153, 204);
+    textSize(28);
+    text("Queue", location.x - 45, location.y);
     //Draw food in specific area when captured
     for(Food f : data) {
      fill(f.c);
@@ -62,9 +70,15 @@ class Queue {
   void eat(Food f) {
     //adds to data structure
     data.add(f);
+    total++;
+    if(total % 20 == 0) {
+      addQueue = 420;
+      shiftY += 10;
+    }
     //location off stored food
-    f.location.x = random(420, 580);
-    f.location.y = random(height - 180, height);
+    f.location.x = addQueue;//random(420, 580);
+    f.location.y = shiftY;//random(height - 180, height);
+    addQueue += 10;
   }
   
   

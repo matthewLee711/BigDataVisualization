@@ -15,6 +15,9 @@ class Stack {
   
   public int x;
   public int y;
+  public int total = 0;
+  public int shiftx = 300;
+  public int addStack= 990;
 
   public Stack(PVector initialLocation) {
     this.location = initialLocation;
@@ -35,7 +38,7 @@ class Stack {
     
     //Catches ball when goes off screen
     if (location.y < 0) location.y = height;
-    if (location.y > height) location.y = 0; 
+    if (location.y > 750) location.y = 0; 
     if (location.x < 0) location.x = width;
     if (location.x > width) location.x = 0;
   }
@@ -46,7 +49,11 @@ class Stack {
   
   void draw() {
     //Draws ellipse which captures circles
+    fill(50);
     ellipse(location.x, location.y, 100, 100);
+    fill(0, 102, 153, 204);
+    textSize(28);
+    text("Stack", location.x - 45, location.y);
     //Draw food in specific area when captured
     for(Food f : data) {
      fill(f.c);
@@ -62,9 +69,17 @@ class Stack {
   void eat(Food f) {
     //adds to data structure
     data.add(f);
+    //keeps track of total
+    total++;
+    //shift stack if total exceeds 20
+    if (total % 20 == 0) {
+      shiftx += 20;
+      addStack = 990;
+    }
     //location off stored food
-    f.location.x = random(220, 380);
-    f.location.y = random(height - 180, height);
+    f.location.x = shiftx;//random(220, 380);
+    f.location.y = addStack;
+    addStack -= 10;
   }
   
   

@@ -63,7 +63,7 @@ void draw() {
   //Stack separation line
   textSize(32);
   fill(0, 102, 153, 204);
-  text("Stack", 250, 795);
+  text("Stack", 260, 795);
   line(400, 800, 400, 1000);
   stroke(250);
   //Queue

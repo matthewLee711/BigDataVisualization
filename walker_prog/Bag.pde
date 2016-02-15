@@ -35,7 +35,7 @@ class Walker {
     
     //Catches ball when goes off screen
     if (location.y < 0) location.y = height;
-    if (location.y > height) location.y = 0; 
+    if (location.y > 750) location.y = 0; 
     if (location.x < 0) location.x = width;
     if (location.x > width) location.x = 0;
   }
@@ -45,8 +45,11 @@ class Walker {
   }
   
   void draw() {
+    
     //Draws ellipse which captures circles
     ellipse(location.x, location.y, 100, 100);
+    fill(50);
+    text("Bag", location.x - 27, location.y);
     //Draw food in specific area when captured
     for(Food f : data) {
      fill(f.c);
