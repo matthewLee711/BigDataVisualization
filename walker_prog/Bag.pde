@@ -62,8 +62,8 @@ class Walker {
   void eat(Food f) {
     //adds to data structure
     data.add(f);
-    f.location.x = random(0,200);
-    f.location.y = random(height - 200, height);
+    f.location.x = random(0,190);
+    f.location.y = random(height - 210, height);
   }
   
   

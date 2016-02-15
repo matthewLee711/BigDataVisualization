@@ -7,6 +7,7 @@ it works will provide a viewer an understanding of why it is used
 //Bag Initialization
 Walker walker;
 //Stack Initialization
+Stack stack;
 
 ArrayList<Food> foods = new ArrayList<Food>();
 final int NUMBER_OF_FOODS = 100;
@@ -18,9 +19,9 @@ void setup() {
   size(1000, 1000);
   //Create bag object and set location
   walker = new Walker(new PVector(width / 2, height / 2));
+  //Create stack object and set location
+  stack = new Stack(new PVector(width / 2, 200));
   
-  
-  //Create Stack object and set location
   
   //fill array with a set of random colors
   for(int i = 0; i < 10; ++i) {
@@ -69,8 +70,26 @@ void draw() {
     }
   }//End of Bag
   
-  //Stack Data Structure
   
+  
+  
+  //Stack Data Structure
+  //Bag Data Structure
+  stack.draw();
+  stack.walk();
+  stack.applyForce(new PVector(-0.1,0));//adding wind
+  //drawWalker();
+  
+  //Shift food down in array for stack
+  for(int i = foods.size() - 1; i >= 0; --i) {
+    Food f = foods.get(i);
+    f.draw();
+    if(stack.isTouching(f)) {
+      stack.eat(f);//add to data structure
+      foods.remove(f);
+    //remove f from the arrayList
+    }
+  }//End of stack
   
   
 }
