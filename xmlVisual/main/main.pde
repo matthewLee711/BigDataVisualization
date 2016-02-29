@@ -81,13 +81,14 @@ void draw() {
       text("</id>", 130, 170);
       text("Press a key", width - 150, height - 30);
       xmlParse();
+      text(catchit, 20, 20);
     }
     if(animation == 8) {
       text("<mediawiki>", 10, 140);
       text("<id> " + total, 20, 170);
       text("</id>", 130, 170);
-      text("<body>some text", 20, 200);
-      text("</body>", 200, 200);
+      text("<body> some text", 20, 200);
+      text("</body>", 210, 200);
       text("</mediawiki>", 10, 230);
     }
   }
@@ -101,8 +102,9 @@ void draw() {
     text("Total Number of Pages: " + id, 5, height-770);
     if(animation == 2)
       text("WHY?????", 5, height-750);
-    if(animation == 3)  
-      text("Number of pages mssing: " + missingPages, 5, height-730);
+    
+    text("Number of pages missing: " + missingPages, 5, height-730);
+    
     if(animation == 4)
       text("Paper saved: ", 5, height-710);
     if(animation == 5)
