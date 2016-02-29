@@ -24,38 +24,34 @@ int missingPages = 0;
 int id = 0;
 int total = 0;
 
-String imgURL;
+//Pictures for visualization
 PImage pic;
+PImage earthimg;
 
 void setup() {
   background(35);
   size(800, 800);
   textSize(22);
   pic = loadImage("dom.jpg");
-  //text("WikiBooks XML Dump", 290, height/2);
-  
-  
-  //XML imgNode = document.getChild("channel/image/url");
-  //imgURL = imgNode.getContent();
-  //image = loadImage(imgURL);
+  earthimg = loadImage("earthpic.png");
 }
-//Visuals
+
+
 void draw() {
- 
   if(page == INTRO) {
     textSize(20);
-    text("The keyboard will be used today", 0, height/2);
-    text("press a key.. and wait for visuals", 20, height/2 + 30);
+    text("The keyboard will be used today", 5, height/3);
+    text("press a key.. and wait for visuals", 20, height/3 + 30);
     if(animation == 1) {
       textSize(32);
-      text("WHOAAA", 0, height/2 + 60);
-      text("A", textMoveX, height/2 + 60);
+      text("WHOAAA", 0, height/3 + 60);
+      text("A", textMoveX, height/3 + 60);
       textMoveX += 0.5;
     }
     if(animation == 2 || textMoveX > 340) {
       animation = 2;
       textSize(20);
-      text("Also when there are no more animations, left mouse click!", 30, height/2 + 80);
+      text("Also when there are no more animations, left mouse click!", 30, height/3 + 80);
     } 
     
   }
@@ -98,6 +94,7 @@ void draw() {
       displayDOM();
       text(overall, 10, 260);
       image(pic, 20, 300, 750, 450);
+      text("WikiBooks xml dump", width/3 + 30, height/3 + 40);
       text("Press left mouse for next page!", width/3 - 30, height/3 - 200);
     }
   }
@@ -110,14 +107,11 @@ void draw() {
     textSize(20);
     text("Total Number of Pages: " + id, 5, height-770);
     text("Trees saved daily: 1.3mil", 5, height-710);
+    text(purpose, 5, height-670);
+    text(purpose2, 5, height-640);
     
-    //if(animation == 2)
-      //text(random, 5, height-500);
-    //if(animation == 3) {
-      text(purpose, 5, height-670);
-      text(purpose2, 5, height-640);
-    //}
-      
+    image(earthimg, 180, 250, 450, 450);
+    text("Trees saved came from using regex on wikipedia's earth day xml", 5, height - 30);  
   }
   
 }

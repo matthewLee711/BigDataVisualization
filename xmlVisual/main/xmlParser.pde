@@ -30,6 +30,7 @@ void xmlParse(){
       counter = id;
     }
   }//End of for loop
+  
   //Regex to see if trees saved
   r = Pattern.compile(pattern);
   m = r.matcher(extractText);
