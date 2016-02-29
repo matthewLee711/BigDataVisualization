@@ -1,10 +1,14 @@
 XML document;
 XML earthXML;
 
+String pattern = "trees saved";
+Pattern r;
+Matcher m;
+
 void xmlParse(){
   //open xml documents
   document = loadXML("test.xml");
-  earthXML = loadXML("earthday.xml");
+  earthXML = loadXML("https://en.wikipedia.org/wiki/Special:Export/Earth_Day");
   //reach children
   XML[] childrenPages = document.getChildren("page/id");
   XML earthText = earthXML.getChild("page/revision/text");
@@ -26,5 +30,9 @@ void xmlParse(){
       counter = id;
     }
   }//End of for loop
+  //Regex to see if trees saved
+  r = Pattern.compile(pattern);
+  m = r.matcher(extractText);
+  //Store total number of pages
   total = id;
 }

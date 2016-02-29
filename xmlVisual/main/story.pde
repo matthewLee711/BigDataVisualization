@@ -18,9 +18,7 @@ void displayDOM() {
     text(na, 200, 170);
 }
 
-//Text used
-
 //Text used in data
 String random = "Trees saved? where did that come from";
-String purpose = "The reason this program was created it to not only to visualize data,";
+String purpose = "The reason this program was created is to not only to visualize data,";
 String purpose2 = "but to give you an idea of how online text like wikibooks saves trees!";

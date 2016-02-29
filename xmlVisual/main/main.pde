@@ -28,6 +28,7 @@ String imgURL;
 PImage pic;
 
 void setup() {
+  background(35);
   size(800, 800);
   textSize(22);
   pic = loadImage("dom.jpg");
@@ -82,7 +83,7 @@ void draw() {
       text("<id>", 20, 170);
       text("</id>", 130, 170);
       text("Press a key", width - 150, height - 30);
-      //xmlParse();
+      xmlParse();
       text(catchit, 200, 170);
     }
     if(animation == 8) {
@@ -97,6 +98,7 @@ void draw() {
       displayDOM();
       text(overall, 10, 260);
       image(pic, 20, 300, 750, 450);
+      text("Press left mouse for next page!", width/3 - 30, height/3 - 200);
     }
   }
   
@@ -107,15 +109,15 @@ void draw() {
     fill(255,255,255);
     textSize(20);
     text("Total Number of Pages: " + id, 5, height-770);
+    text("Trees saved daily: 1.3mil", 5, height-710);
     
-    //text("Number of pages missing: " + missingPages, 5, height-730);
-    
-    if(animation == 1)
-      text("Trees saved: ", 5, height-710);
-    if(animation == 5)
-      text("Number of words", 5, height-690);
-    if(animation == 6)
-      text("interesting enough", 5, height-670);
+    //if(animation == 2)
+      //text(random, 5, height-500);
+    //if(animation == 3) {
+      text(purpose, 5, height-670);
+      text(purpose2, 5, height-640);
+    //}
+      
   }
   
 }
