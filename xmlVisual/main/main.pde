@@ -6,12 +6,13 @@ of anyone's finger. This processing project will access an xml
 file provided by a website and make a small visual.*/
 
 import processing.core.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //Set states
 final int INTRO = 0;
 final int INTROXML = 1;
 final int DATA = 2;
-final int INTERACTION = 3;
 
 //Iterate through different states
 int page = 0;
@@ -24,11 +25,12 @@ int id = 0;
 int total = 0;
 
 String imgURL;
-PImage image;
+PImage pic;
 
 void setup() {
   size(800, 800);
   textSize(22);
+  pic = loadImage("dom.jpg");
   //text("WikiBooks XML Dump", 290, height/2);
   
   
@@ -80,41 +82,40 @@ void draw() {
       text("<id>", 20, 170);
       text("</id>", 130, 170);
       text("Press a key", width - 150, height - 30);
-      xmlParse();
-      text(catchit, 20, 20);
+      //xmlParse();
+      text(catchit, 200, 170);
     }
     if(animation == 8) {
-      text("<mediawiki>", 10, 140);
-      text("<id> " + total, 20, 170);
-      text("</id>", 130, 170);
-      text("<body> some text", 20, 200);
-      text("</body>", 210, 200);
-      text("</mediawiki>", 10, 230);
+      displayDOM();
+      text(na, 200, 170);
+    }
+    if(animation == 9) {
+      displayDOM();
+      text(computersFast, 10, 260);
+    }
+    if(animation == 10) {
+      displayDOM();
+      text(overall, 10, 260);
+      image(pic, 20, 300, 750, 450);
     }
   }
   
   
   if(page == DATA) {
-    String secret = "Open sourced is why. People can add content when they want";
+    animation = 0;
     background(33);
     fill(255,255,255);
     textSize(20);
     text("Total Number of Pages: " + id, 5, height-770);
-    if(animation == 2)
-      text("WHY?????", 5, height-750);
     
-    text("Number of pages missing: " + missingPages, 5, height-730);
+    //text("Number of pages missing: " + missingPages, 5, height-730);
     
-    if(animation == 4)
-      text("Paper saved: ", 5, height-710);
+    if(animation == 1)
+      text("Trees saved: ", 5, height-710);
     if(animation == 5)
       text("Number of words", 5, height-690);
     if(animation == 6)
       text("interesting enough", 5, height-670);
-  }
-  
-  if(page == INTERACTION) {
-    background(0);
   }
   
 }
