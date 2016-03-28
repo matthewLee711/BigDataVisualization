@@ -10,11 +10,11 @@ class pythonSQLite:
 		self.usrInput = usrInput
 
 	#SQLite queries
-	SQL_SELECT_SONGS = "SELECT name FROM songs"
+	SQL_SELECT_SONGS = "SELECT * FROM songs"
 	SQL_INSERT_SONG = "INSERT INTO song (id, name, genre_id, album_id) VALUES "
 	
 	#0,1,2,3,4
-	searchList = [None, None, 'genres', 'artists', 'albums'];
+	searchList = [None, None, 'genres', 'artists', 'albums', 'songs'];
 	#debug statement
 	#pythonSQLite.cursor.execute("INSERT INTO genres (id, name) VALUES (11, 'Matthew')")
 
@@ -22,6 +22,7 @@ class pythonSQLite:
 	#1. add sqlite iterators for seemless experience -- song, genre, artist
 	#2. join song with genres_id, and artists_id
 	#3. 
+	#Establish connection to database
 	db_connection = sqlite3.connect(DB_FILE_NAME)
 	
 	#Create a cursor -- pointer to where you are in a collection of data
@@ -40,20 +41,21 @@ class pythonSQLite:
 			for genres in pythonSQLite.cursor.execute("SELECT * FROM genres"): genreList.append(genres)
 			for artists in pythonSQLite.cursor.execute("SELECT * FROM artists"): artistList.append(artists)
 			for albums in pythonSQLite.cursor.execute("SELECT * FROM albums"): albumList.append(albums)
-			#works
+			#Output table
 			print("Song:           Genre:           Artist:           Album:")
 			for row in pythonSQLite.cursor.execute("SELECT * FROM songs"):
+				#row [0=id,1=name,2=genre_id,3=album_id,4=artist_id]
 				print(row[1], end="".ljust(16-len(row[1]))),
-				print("".join(t[1].ljust(18 - t[0] + i) for t in genreList if t[0] == row[0]), end=""),
-				print("".join(a[1].ljust(19 - a[0] + i) for a in artistList if a[0] == row[0]), end=""),
-				print("".join(m[1] for m in albumList if m[0] == row[0]))
+				print("".join(t[1].ljust(21 - len(t[1])) for t in genreList if t[0] == row[2]), end=""),#genre
+				print("".join(a[1].ljust(30 - len(a[1])) for a in artistList if a[0] == row[4]), end=""),#artist
+				print("".join(m[1] for m in albumList if m[0] == row[3]))#album
 				i += 1
 		#Displays either artist, genre, or album 17
 		elif SQLinput >= 2 or SQLinput <= 4:
 			print(pythonSQLite.searchList[SQLinput] + " in the database:")
-			for row in pythonSQLite.cursor.execute("SELECT name FROM " + (pythonSQLite.searchList[SQLinput])): print(row)
+			for row in pythonSQLite.cursor.execute("SELECT * FROM " + (pythonSQLite.searchList[SQLinput])): print(str(row[0]) + ". " + row[1])
 
-	#Obtains max id from table -- used by SQLiteInsert to add song to end of database
+	#Obtains max id from table -- used by SQLiteInsert to add song/artist/album to end of database
 	@staticmethod
 	def SQLiteMaxID(SQLinput):
 		pythonSQLite.cursor.execute("SELECT * FROM " + pythonSQLite.searchList[SQLinput]\
@@ -69,29 +71,31 @@ class pythonSQLite:
 	#INSERT query for SQLite
 	@staticmethod
 	def SQLiteInsert(SQLinput, SQL_ADD):
-		print(SQL_ADD)
 		#Handles and stores new genres and artists input 
 		if SQLinput == 2 or SQLinput == 3:
 			pythonSQLite.cursor.execute("INSERT INTO " + pythonSQLite.searchList[SQLinput] + " (id, name) VALUES (?, ?)"\
 				, (pythonSQLite.SQLiteMaxID(SQLinput), (SQL_ADD)) )
+			print("Successfully added!")
 		# Handles and stores new albums input
 		elif SQLinput == 4:
 			pythonSQLite.SQLiteDisplay(3)
-			__artistInput = input("Select an Artist: ")
+			__artistInput = input("Select an Artist number to match your album: ")
 			pythonSQLite.cursor.execute("INSERT INTO albums (id, name, artist_id) VALUES (?, ?, ?)"\
 				, (pythonSQLite.SQLiteMaxID(SQLinput), (SQL_ADD), __artistInput) )
-			# pythonSQLite.cursor.execute("INSERT INTO" + pythonSQLite.searchList[SQLinput]\
-			#  + " (id, name) " + "VALUES " + '(' + pythonSQLite.SQLiteMaxID(SQLinput) + ', ' + SQL_ADD + ')')
+			print("Successfully added!")
 		#Handles and stores full song/album/artist input
 		elif SQLinput == 5:
 			pythonSQLite.SQLiteDisplay(2)
-			__genreInput = input("Select a Genre: ")
+			__genreInput = input("Associate a Genre to your song: ")
 			pythonSQLite.SQLiteDisplay(4)
-			__albumInput = input("Select an Album: ")
+			__albumInput = input("Associate an Album to your song: ")
 			pythonSQLite.SQLiteDisplay(3)
-			__artistInput = input("Select an Artist: ")
-			pythonSQLite.cursor.execute("INSERT INTO songs (id, name, genre_id, album_id, artist_id) VALUES (?, ?, ?, ?)"\
+			__artistInput = input("Associate an Artist to your song: ")
+			for songz in pythonSQLite.cursor.execute("SELECT * FROM songs"): print(str(songz[0]) + songz[1])
+			print(SQLinput)
+			pythonSQLite.cursor.execute("INSERT INTO songs (id, name, genre_id, album_id, artist_id) VALUES (?, ?, ?, ?, ?)"\
 				, (pythonSQLite.SQLiteMaxID(SQLinput), (SQL_ADD), __genreInput, __albumInput, __artistInput) )
+			print("Successfully added!")
 		#Catches exceptions
 		else:
 			print("You shouldn't be here..")
@@ -100,6 +104,7 @@ class pythonSQLite:
 	def query(self):
 		if self.usrInput == '1':
 			self.SQLiteDisplay(1)
+			pythonSQLite.db_connection.close()
 			sys.exit()
 		#User input to add new genre
 		elif self.usrInput == '2': 
@@ -120,8 +125,7 @@ class pythonSQLite:
 			#user gets to select each genre, artist, and album from existing list
 		else:
 			print("Invalid input")
-		#pythonSQLite.db_connection.commit()
-		#pythonSQLite.db_connection.close()
+		pythonSQLite.db_connection.commit()
 
 #This is vulnerable to SQL injection attack
 while 1:
