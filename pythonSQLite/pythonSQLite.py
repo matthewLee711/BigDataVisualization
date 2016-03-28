@@ -7,10 +7,6 @@ class pythonSQLite:
 	DB_FILE_NAME = "songs.sqlite3.db"
 	def __init__(self, usrInput):
 		self.usrInput = usrInput
-
-	#SQLite queries
-	SQL_SELECT_SONGS = "SELECT * FROM songs"
-	SQL_INSERT_SONG = "INSERT INTO song (id, name, genre_id, album_id) VALUES "
 	
 	#0,1,2,3,4
 	searchList = [None, None, 'genres', 'artists', 'albums', 'songs'];
@@ -18,7 +14,7 @@ class pythonSQLite:
 	#Establish connection to database
 	db_connection = sqlite3.connect(DB_FILE_NAME)
 	
-	#Create a cursor -- pointer to where you are in a collection of data
+	#Creates a cursor -- pointer to where you are in a collection of data
 	cursor = db_connection.cursor()
 
 	#Displays data from SQLite table
@@ -59,7 +55,7 @@ class pythonSQLite:
 	def SQLiteSearch(albumForArtist):
 		return cur.execute("SELECT * FROM list WHERE InstitutionName=?", (albumForArtist))
 
-	#INSERT query for SQLite
+	#INSERTs queries into database for SQLite
 	@staticmethod
 	def SQLiteInsert(SQLinput, SQL_ADD):
 		#Handles and stores new genres and artists input 
