@@ -33,7 +33,7 @@ class pythonSQLite:
 			print("Song Name:		Genre Name:		Artist Name:		Album Name:		")
 			for row in pythonSQLite.cursor.execute("SELECT * FROM songs"):
 				print(row)
-		elif SQLinput == 2 or SQLinput == 3:
+		elif SQLinput >= 2 or SQLinput <= 4:
 			print(pythonSQLite.searchList[SQLinput] + " in the database:")
 			for row in pythonSQLite.cursor.execute("SELECT name FROM " + (pythonSQLite.searchList[SQLinput])): print(row)
 
@@ -60,10 +60,22 @@ class pythonSQLite:
 				, (pythonSQLite.SQLiteMaxID(SQLinput), (SQL_ADD)) )
 		# Handles and stores new albums input
 		elif SQLinput == 4:
+			pythonSQLite.SQLiteDisplay(3)
+			__artistInput = input("Select an Artist: ")
 			pythonSQLite.cursor.execute("INSERT INTO albums (id, name, artist_id) VALUES (?, ?, ?)"\
-				, (pythonSQLite.SQLiteMaxID(SQLinput), (SQL_ADD), pythonSQLite.SQLiteSearch()) )
+				, (pythonSQLite.SQLiteMaxID(SQLinput), (SQL_ADD), __artistInput) )
 			# pythonSQLite.cursor.execute("INSERT INTO" + pythonSQLite.searchList[SQLinput]\
 			#  + " (id, name) " + "VALUES " + '(' + pythonSQLite.SQLiteMaxID(SQLinput) + ', ' + SQL_ADD + ')')
+		#Handles and stores full song/album/artist input
+		elif SQLinput == 5:
+			pythonSQLite.SQLiteDisplay(2)
+			__genreInput = input("Select a Genre: ")
+			pythonSQLite.SQLiteDisplay(4)
+			__albumInput = input("Select an Album: ")
+			pythonSQLite.SQLiteDisplay(3)
+			__artistInput = input("Select an Artist: ")
+			pythonSQLite.cursor.execute("INSERT INTO songs (id, name, genre_id, album_id, artist_id) VALUES (?, ?, ?, ?)"\
+				, (pythonSQLite.SQLiteMaxID(SQLinput), (SQL_ADD), __genreInput, __albumInput, __artistInput) )
 		#Catches exceptions
 		else:
 			print("You shouldn't be here..")
@@ -84,14 +96,14 @@ class pythonSQLite:
 		elif self.usrInput == '3': 
 			self.SQLiteDisplay(3)
 			self.SQLiteInsert(3, input("Add new artist: "))
-		#User input to add new album
+		#User input to add new album -- INCOMPLETE
 		elif self.usrInput == '4': 
 			self.SQLiteDisplay(4)
 			self.SQLiteInsert(4, input("Add new album: "))
-		#User input to add new song
+		#User input to add new song -- INCOMPLETE
 		elif self.usrInput == '5':
-			SQL_ADD = input("Add new song: ")
-			#self.SQLiteInsert(5, SQL_ADD)
+			print("Add a new Song!")
+			self.SQLiteInsert(5, input("Song Name: "))
 			#user gets to select each genre, artist, and album from existing list
 		else:
 			print("Invalid input")
@@ -105,7 +117,8 @@ while 1:
 	1. Display all song information
 	2. Add a new genre
 	3. Add a new artist
-	4. Add a new song
+	4. Add a new album
+	5. Add a new song
 	Enter a choice:
 	""")
 	sqlInput = pythonSQLite(text)
