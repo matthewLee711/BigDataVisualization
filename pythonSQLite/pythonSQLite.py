@@ -1,6 +1,7 @@
 #!/usr/bin/env/python
 
 import sqlite3
+import sys
 
 class pythonSQLite:
 	DB_FILE_NAME = "songs.sqlite3.db"
@@ -28,8 +29,13 @@ class pythonSQLite:
 	#Displays data from SQLite table
 	@staticmethod
 	def SQLiteDisplay(SQLinput):
-		print(pythonSQLite.searchList[SQLinput] + " in the database:")
-		for row in pythonSQLite.cursor.execute("SELECT name FROM " + (pythonSQLite.searchList[SQLinput])): print(row)
+		if SQLinput == 1:
+			print("Song Name:		Genre Name:		Artist Name:		Album Name:		")
+			for row in pythonSQLite.cursor.execute("SELECT * FROM songs"):
+				print(row)
+		elif SQLinput == 2 or SQLinput == 3:
+			print(pythonSQLite.searchList[SQLinput] + " in the database:")
+			for row in pythonSQLite.cursor.execute("SELECT name FROM " + (pythonSQLite.searchList[SQLinput])): print(row)
 
 	#Obtains max id from table -- used by SQLiteInsert to add song to end of database
 	@staticmethod
@@ -65,8 +71,10 @@ class pythonSQLite:
 	#Intakes user input to add songs to SQLite table
 	def query(self):
 		if self.usrInput == '1':
-			for row in pythonSQLite.cursor.execute(pythonSQLite.SQL_SELECT_SONGS):
-				print(row)
+			self.SQLiteDisplay(1)
+			sys.exit()
+			# for row in pythonSQLite.cursor.execute(pythonSQLite.SQL_SELECT_SONGS):
+			# 	print(row)
 			#Program needs to quit after this
 		#User input to add new genre
 		elif self.usrInput == '2': 
