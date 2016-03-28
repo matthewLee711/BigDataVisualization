@@ -19,12 +19,19 @@ class pythonSQLite:
 	#toDO
 	#1. add sqlite iterators for seemless experience -- song, genre, artist
 	#2. join song with genres_id, and artists_id
+	#3. 
 	db_connection = sqlite3.connect(DB_FILE_NAME)
 	
 	#Create a cursor -- pointer to where you are in a collection of data
 	cursor = db_connection.cursor()
 
-	#Obtains max id from table -- to be used by SQLiteInsert
+	#Displays data from SQLite table
+	@staticmethod
+	def SQLiteDisplay(SQLinput):
+		print(pythonSQLite.searchList[SQLinput] + " in the database:")
+		for row in pythonSQLite.cursor.execute("SELECT name FROM " + (pythonSQLite.searchList[SQLinput])): print(row)
+
+	#Obtains max id from table -- used by SQLiteInsert to add song to end of database
 	@staticmethod
 	def SQLiteMaxID(SQLinput):
 		pythonSQLite.cursor.execute("SELECT * FROM " + pythonSQLite.searchList[SQLinput]\
@@ -32,22 +39,25 @@ class pythonSQLite:
 		max_id = pythonSQLite.cursor.fetchone()[0]
 		return max_id + 1 #add 1 to prevent collision of ID insertion
 
+	#Returns ID of artist -- used by SQLiteInsert to associate album to artist
+	@staticmethod
+	def SQLiteSearch(albumForArtist):
+		return cur.execute("SELECT * FROM list WHERE InstitutionName=?", (albumForArtist))
+
 	#INSERT query for SQLite
 	@staticmethod
 	def SQLiteInsert(SQLinput, SQL_ADD):
 		print(SQL_ADD)
 		#Handles and stores new genres and artists input 
 		if SQLinput == 2 or SQLinput == 3:
-			# pythonSQLite.cursor.execute("INSERT INTO " + pythonSQLite.searchList[SQLinput] + " (id, name) "\
-			#  + "VALUES " + "(" + pythonSQLite.SQLiteMaxID(SQLinput) + ", " + SQL_ADD + ")")
-			# pythonSQLite.cursor.execute("INSERT INTO " + pythonSQLite.searchList[SQLinput] + " (id, name) "\
-			#  + "VALUES (?, ?)", pythonSQLite.SQLiteMaxID(SQLinput), SQL_ADD)
-			pythonSQLite.cursor.execute("INSERT INTO artists (id, name) VALUES (?, ?)"\
+			pythonSQLite.cursor.execute("INSERT INTO " + pythonSQLite.searchList[SQLinput] + " (id, name) VALUES (?, ?)"\
 				, (pythonSQLite.SQLiteMaxID(SQLinput), (SQL_ADD)) )
 		# Handles and stores new albums input
 		elif SQLinput == 4:
-			pythonSQLite.cursor.execute("INSERT INTO" + pythonSQLite.searchList[SQLinput]\
-			 + " (id, name) " + "VALUES " + '(' + pythonSQLite.SQLiteMaxID(SQLinput) + ', ' + SQL_ADD + ')')
+			pythonSQLite.cursor.execute("INSERT INTO albums (id, name, artist_id) VALUES (?, ?, ?)"\
+				, (pythonSQLite.SQLiteMaxID(SQLinput), (SQL_ADD), pythonSQLite.SQLiteSearch()) )
+			# pythonSQLite.cursor.execute("INSERT INTO" + pythonSQLite.searchList[SQLinput]\
+			#  + " (id, name) " + "VALUES " + '(' + pythonSQLite.SQLiteMaxID(SQLinput) + ', ' + SQL_ADD + ')')
 		#Catches exceptions
 		else:
 			print("You shouldn't be here..")
@@ -59,11 +69,17 @@ class pythonSQLite:
 				print(row)
 			#Program needs to quit after this
 		#User input to add new genre
-		elif self.usrInput == '2': self.SQLiteInsert(2, input("Add new genre: "))
+		elif self.usrInput == '2': 
+			self.SQLiteDisplay(2)
+			self.SQLiteInsert(2, input("Add new genre: "))
 		#User input to add new artist
-		elif self.usrInput == '3': self.SQLiteInsert(3, input("Add new artist: "))
+		elif self.usrInput == '3': 
+			self.SQLiteDisplay(3)
+			self.SQLiteInsert(3, input("Add new artist: "))
 		#User input to add new album
-		elif self.usrInput == '4': self.SQLiteInsert(4, input("Add new album: "))
+		elif self.usrInput == '4': 
+			self.SQLiteDisplay(4)
+			self.SQLiteInsert(4, input("Add new album: "))
 		#User input to add new song
 		elif self.usrInput == '5':
 			SQL_ADD = input("Add new song: ")
