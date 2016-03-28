@@ -2,6 +2,7 @@
 
 import sqlite3
 import sys
+from sys import stdout
 
 class pythonSQLite:
 	DB_FILE_NAME = "songs.sqlite3.db"
@@ -29,10 +30,24 @@ class pythonSQLite:
 	#Displays data from SQLite table
 	@staticmethod
 	def SQLiteDisplay(SQLinput):
+		#Displays entire table
 		if SQLinput == 1:
-			print("Song Name:		Genre Name:		Artist Name:		Album Name:		")
+			genreList = [(None, None)]
+			artistList = [(None, None)]
+			albumList = [(None, None)]
+			i = 0
+			#Store tuples into lists for access by songs
+			for genres in pythonSQLite.cursor.execute("SELECT * FROM genres"): genreList.append(genres)
+			for artists in pythonSQLite.cursor.execute("SELECT * FROM artists"): artistList.append(artists)
+			for albums in pythonSQLite.cursor.execute("SELECT * FROM albums"): albumList.append(albums)
+			#works
+			print("Song:		Genre:		Artist:		Album:		")
 			for row in pythonSQLite.cursor.execute("SELECT * FROM songs"):
-				print(row)
+				print(row[1], end=" "),
+				print("".join(t[1] for t in genreList if t[0] == row[0])),
+				print("".join(t[1] for t in artistList if t[0] == row[0])),
+				print("".join(t[1] for t in albumList if t[0] == row[0]))
+		#Displays either artist, genre, or album
 		elif SQLinput >= 2 or SQLinput <= 4:
 			print(pythonSQLite.searchList[SQLinput] + " in the database:")
 			for row in pythonSQLite.cursor.execute("SELECT name FROM " + (pythonSQLite.searchList[SQLinput])): print(row)
@@ -85,9 +100,6 @@ class pythonSQLite:
 		if self.usrInput == '1':
 			self.SQLiteDisplay(1)
 			sys.exit()
-			# for row in pythonSQLite.cursor.execute(pythonSQLite.SQL_SELECT_SONGS):
-			# 	print(row)
-			#Program needs to quit after this
 		#User input to add new genre
 		elif self.usrInput == '2': 
 			self.SQLiteDisplay(2)
