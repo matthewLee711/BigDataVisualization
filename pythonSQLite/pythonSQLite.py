@@ -115,7 +115,7 @@ class pythonSQLite:
 		#Error handle invalid number
 		else:
 			print("Invalid input")
-		#pythonSQLite.db_connection.commit()
+		pythonSQLite.db_connection.commit()
 
 #This is vulnerable to SQL injection attack
 while 1:
