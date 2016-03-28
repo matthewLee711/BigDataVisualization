@@ -15,13 +15,7 @@ class pythonSQLite:
 	
 	#0,1,2,3,4
 	searchList = [None, None, 'genres', 'artists', 'albums', 'songs'];
-	#debug statement
-	#pythonSQLite.cursor.execute("INSERT INTO genres (id, name) VALUES (11, 'Matthew')")
-
-	#toDO
-	#1. add sqlite iterators for seemless experience -- song, genre, artist
-	#2. join song with genres_id, and artists_id
-	#3. 
+	
 	#Establish connection to database
 	db_connection = sqlite3.connect(DB_FILE_NAME)
 	
