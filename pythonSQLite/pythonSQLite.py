@@ -2,7 +2,6 @@
 
 import sqlite3
 import sys
-from sys import stdout
 
 class pythonSQLite:
 	DB_FILE_NAME = "songs.sqlite3.db"
@@ -30,7 +29,6 @@ class pythonSQLite:
 			genreList = [(None, None)]
 			artistList = [(None, None)]
 			albumList = [(None, None)]
-			i = 0
 			#Store tuples into lists for access by songs
 			for genres in pythonSQLite.cursor.execute("SELECT * FROM genres"): genreList.append(genres)
 			for artists in pythonSQLite.cursor.execute("SELECT * FROM artists"): artistList.append(artists)
@@ -43,7 +41,6 @@ class pythonSQLite:
 				print("".join(t[1].ljust(21 - len(t[1])) for t in genreList if t[0] == row[2]), end=""),#genre
 				print("".join(a[1].ljust(30 - len(a[1])) for a in artistList if a[0] == row[4]), end=""),#artist
 				print("".join(m[1] for m in albumList if m[0] == row[3]))#album
-				i += 1
 		#Displays either artist, genre, or album 17
 		elif SQLinput >= 2 or SQLinput <= 4:
 			print(pythonSQLite.searchList[SQLinput] + " in the database:")
@@ -108,15 +105,16 @@ class pythonSQLite:
 		elif self.usrInput == '3': 
 			self.SQLiteDisplay(3)
 			self.SQLiteInsert(3, input("Add new artist: "))
-		#User input to add new album -- INCOMPLETE
+		#User input to add new album -- Selects artist to associate with
 		elif self.usrInput == '4': 
 			self.SQLiteDisplay(4)
 			self.SQLiteInsert(4, input("Add new album: "))
-		#User input to add new song -- INCOMPLETE
+		#User input to add new song -- Selects genre, artist, and album to associate with
 		elif self.usrInput == '5':
 			print("Add a new Song!")
 			self.SQLiteInsert(5, input("Song Name: "))
 			#user gets to select each genre, artist, and album from existing list
+		#Error handle invalid number
 		else:
 			print("Invalid input")
 		pythonSQLite.db_connection.commit()
