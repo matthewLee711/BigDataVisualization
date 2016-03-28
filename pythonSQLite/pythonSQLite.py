@@ -41,13 +41,14 @@ class pythonSQLite:
 			for artists in pythonSQLite.cursor.execute("SELECT * FROM artists"): artistList.append(artists)
 			for albums in pythonSQLite.cursor.execute("SELECT * FROM albums"): albumList.append(albums)
 			#works
-			print("Song:           Genre:		Artist:		Album:		")
+			print("Song:           Genre:           Artist:           Album:")
 			for row in pythonSQLite.cursor.execute("SELECT * FROM songs"):
-				print(row[1], end="   "),
-				print("".join(t[1] for t in genreList if t[0] == row[0]), end="		"),
-				print("".join(a[1] for a in artistList if a[0] == row[0]), end="	"),
+				print(row[1], end="".ljust(16-len(row[1]))),
+				print("".join(t[1].ljust(18 - t[0] + i) for t in genreList if t[0] == row[0]), end=""),
+				print("".join(a[1].ljust(19 - a[0] + i) for a in artistList if a[0] == row[0]), end=""),
 				print("".join(m[1] for m in albumList if m[0] == row[0]))
-		#Displays either artist, genre, or album 11
+				i += 1
+		#Displays either artist, genre, or album 17
 		elif SQLinput >= 2 or SQLinput <= 4:
 			print(pythonSQLite.searchList[SQLinput] + " in the database:")
 			for row in pythonSQLite.cursor.execute("SELECT name FROM " + (pythonSQLite.searchList[SQLinput])): print(row)
