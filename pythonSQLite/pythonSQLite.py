@@ -82,8 +82,6 @@ class pythonSQLite:
 			__albumInput = input("Associate an Album to your song: ")
 			pythonSQLite.SQLiteDisplay(3)
 			__artistInput = input("Associate an Artist to your song: ")
-			for songz in pythonSQLite.cursor.execute("SELECT * FROM songs"): print(str(songz[0]) + songz[1])
-			print(SQLinput)
 			pythonSQLite.cursor.execute("INSERT INTO songs (id, name, genre_id, album_id, artist_id) VALUES (?, ?, ?, ?, ?)"\
 				, (pythonSQLite.SQLiteMaxID(SQLinput), (SQL_ADD), __genreInput, __albumInput, __artistInput) )
 			print("Successfully added!")
@@ -117,7 +115,7 @@ class pythonSQLite:
 		#Error handle invalid number
 		else:
 			print("Invalid input")
-		pythonSQLite.db_connection.commit()
+		#pythonSQLite.db_connection.commit()
 
 #This is vulnerable to SQL injection attack
 while 1:
