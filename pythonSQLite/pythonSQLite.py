@@ -50,11 +50,6 @@ class pythonSQLite:
 		max_id = pythonSQLite.cursor.fetchone()[0]
 		return max_id + 1 #add 1 to prevent collision of ID insertion
 
-	#Returns ID of artist -- used by SQLiteInsert to associate album to artist
-	@staticmethod
-	def SQLiteSearch(albumForArtist):
-		return cur.execute("SELECT * FROM list WHERE InstitutionName=?", (albumForArtist))
-
 	#INSERTs queries into database for SQLite
 	@staticmethod
 	def SQLiteInsert(SQLinput, SQL_ADD):
